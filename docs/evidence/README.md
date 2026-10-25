@@ -99,8 +99,15 @@ The merged build gives the same results as `pr-3399`.
 
 ## Blocker met and how it was handled
 
-Uploading a new 46 KB smart-account wasm to testnet needed about 6.5 billion
-stroops in resource fees, above the 4,294,967,295 stroop limit of a single
-transaction. So this check does not upload a custom account. It reuses the
-OpenZeppelin v0.8.0 example account, which is already on testnet, and adds the
-capped rule with an owner-signed `add_context_rule` call.
+A simulated upload of new smart-account code asked 7,798,187,370 stroops
+(about 780 XLM) in resource fees ([wasm-upload-simulation.json](wasm-upload-simulation.json)).
+The wasm is the OZ example account with a random custom section appended, so
+the code is the same but the hash is new (47,576 bytes). The same wasm without
+the extra section is already on testnet and asks 132,210 stroops.
+
+7.8 billion is above the uint32 fee field of a plain transaction
+(4,294,967,295), so the Stellar SDK refuses to build it. A fee-bump transaction
+carries an int64 fee and may get around that limit. I did not try it, because
+reusing the deployed example was cheaper and needs no new code. So this check
+does not upload a custom account. It reuses the OpenZeppelin v0.8.0 example
+account and adds the capped rule with an owner-signed `add_context_rule` call.

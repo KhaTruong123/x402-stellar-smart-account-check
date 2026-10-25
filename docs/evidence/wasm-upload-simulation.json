@@ -1,0 +1,21 @@
+{
+  "simulatedAt": "2026-10-25T07:33:31.773Z",
+  "rpc": "https://soroban-testnet.stellar.org",
+  "protocolVersion": 29,
+  "uint32MaxStroops": 4294967295,
+  "alreadyOnTestnet": {
+    "wasmBytes": 47541,
+    "wasmHash": "34d6b0c5d949443ba207a016ce110db4c6ea74235b2bd22d7b028a7eb4d1ab84",
+    "minResourceFeeStroops": 132210,
+    "writeBytes": 0,
+    "latestLedger": 5378004
+  },
+  "newWasmSameCode": {
+    "wasmBytes": 47576,
+    "wasmHash": "e64248bdb188af8137f58d5850f485f4d47feaa10de06d191323bbf0d7ddff2d",
+    "minResourceFeeStroops": 7798187370,
+    "writeBytes": 47676,
+    "latestLedger": 5378004,
+    "exceedsUint32": true
+  }
+}

@@ -1,7 +1,5 @@
 # Review comment for x402-foundation/x402#3399
 
-Draft for Kelvin to paste on https://github.com/x402-foundation/x402/pull/3399.
-Not posted. Links point at `main` of this repo, so merge this repo's PR first.
 Verdict: works with concerns.
 
 ---

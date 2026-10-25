@@ -5,7 +5,7 @@
   "license": "MIT",
   "engines": { "node": ">=22" },
   "scripts": {
-    "build:contracts": "cd contracts && stellar contract build",
+    "build:contracts": "./scripts/build-contracts.sh",
     "setup": "node scripts/setup-testnet.mjs",
     "checks": "node scripts/run-checks.mjs"
   },

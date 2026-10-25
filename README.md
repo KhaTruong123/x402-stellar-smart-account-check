@@ -47,6 +47,7 @@ Review comments ready to paste: [docs/review-3399.md](docs/review-3399.md), [doc
 | `scripts/setup-testnet.mjs` | Creates and funds keys, deploys the contracts, adds the capped agent rule, funds the account |
 | `scripts/run-checks.mjs` | Runs the check matrix against four x402 builds |
 | `scripts/probe-event-scan.mjs` | Feeds crafted events to the facilitator event check, no network |
+| `scripts/simulate-wasm-upload.mjs` | Simulates a new wasm upload and records the resource fee, nothing submitted |
 | `scripts/collect-fees.mjs` | Reads the fees charged for the settled transactions from Horizon |
 | `scripts/lib/smart-account-auth.mjs` | Builds the `__check_auth` signature for the OZ account, and the x402 signer |
 | `docs/evidence/` | Outputs, transaction hashes, test logs |
@@ -98,10 +99,14 @@ before a second run inside the same day.
 
 ## Notes
 
-- Uploading a new smart-account wasm to testnet costs more than one transaction
-  can pay (about 6.5 billion stroops for 46 KB). The setup therefore reuses the
-  OpenZeppelin example account, already on testnet, and adds the capped rule
-  with an owner-signed `add_context_rule` call.
+- Uploading new smart-account code to testnet is expensive right now. A
+  simulated upload of a new 47.6 KB wasm asked 7,798,187,370 stroops (about
+  780 XLM) in resource fees ([simulation](docs/evidence/wasm-upload-simulation.json)).
+  That is above the uint32 fee field of a plain transaction, so the SDK refuses
+  to build it. A fee-bump transaction has an int64 fee and may get around that
+  limit. I did not try it. The setup reuses the OpenZeppelin example account,
+  which is already on testnet (132,210 stroops to "upload" again), and adds the
+  capped rule with an owner-signed `add_context_rule` call.
 - The facilitator fee ceiling in `run-checks.mjs` is 300,000,000 stroops so that
   the event scan is what gets tested. Check F5 records the default ceiling.
 - Nothing here has been posted to the x402 repo.
