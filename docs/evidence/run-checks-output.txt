@@ -1,0 +1,257 @@
+
+[C1] main client, smart-account payer
+  expected: throws in signAuthEntries (ed25519 path on a C address)
+  observed: {
+    "threw": "invalid version byte. expected 48, got 16",
+    "pass": true,
+    "matched": "invalid version byte"
+  }
+
+[C2] PR 3860 client, smart-account payer
+  expected: payload created; client re-simulation with real auth succeeds
+  observed: {
+    "pass": true,
+    "simulation": {
+      "minResourceFee": "103701385",
+      "contractEvents": [
+        {
+          "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+          "name": "spending_limit_enforced",
+          "topicCount": 2,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+          ]
+        },
+        {
+          "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+          "name": "transfer",
+          "topicCount": 4,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+            "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+            "native"
+          ]
+        }
+      ]
+    }
+  }
+
+[F1] main facilitator verifies the C2 payload
+  expected: isValid false, invalid_exact_stellar_payload_event_not_transfer
+  observed: {
+    "verify": {
+      "isValid": false,
+      "invalidReason": "invalid_exact_stellar_payload_event_not_transfer",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "pass": true
+  }
+
+[F2] PR 3399 facilitator settles the same C2 payload
+  expected: verify ok, settle success, one policy event plus one transfer on-chain
+  observed: {
+    "verify": {
+      "isValid": true,
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "settle": {
+      "success": true,
+      "transaction": "dc36081ba559c39fb69fe3332890056aa1f43fe007b5355883b6259d24d30562",
+      "network": "stellar:testnet",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "link": "https://stellar.expert/explorer/testnet/tx/dc36081ba559c39fb69fe3332890056aa1f43fe007b5355883b6259d24d30562",
+    "events": [
+      {
+        "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+        "name": "spending_limit_enforced",
+        "topicCount": 2,
+        "topics": [
+          "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+        ]
+      },
+      {
+        "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+        "name": "transfer",
+        "topicCount": 4,
+        "topics": [
+          "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+          "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+          "native"
+        ]
+      }
+    ],
+    "pass": true
+  }
+
+[C3] PR 3860 client, classic G payer, settled by main facilitator
+  expected: unchanged ed25519 path: payload created and settled
+  observed: {
+    "settle": {
+      "success": true,
+      "transaction": "f85b4b842ee7238fbe559b003cb0c945f7fd973c1ef2063342f85642b8cb8c2a",
+      "network": "stellar:testnet",
+      "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ"
+    },
+    "link": "https://stellar.expert/explorer/testnet/tx/f85b4b842ee7238fbe559b003cb0c945f7fd973c1ef2063342f85642b8cb8c2a",
+    "pass": true
+  }
+
+[F3] main client, classic G payer, settled by PR 3399 facilitator
+  expected: classic payments still settle under the new event scan
+  observed: {
+    "settle": {
+      "success": true,
+      "transaction": "5f72f54f396eb91f7ec8ceeebbb959b9be7962c81c55b6f4be4e0bb27722845a",
+      "network": "stellar:testnet",
+      "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ"
+    },
+    "link": "https://stellar.expert/explorer/testnet/tx/5f72f54f396eb91f7ec8ceeebbb959b9be7962c81c55b6f4be4e0bb27722845a",
+    "events": [
+      {
+        "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+        "name": "transfer",
+        "topicCount": 4,
+        "topics": [
+          "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ",
+          "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+          "native"
+        ]
+      }
+    ],
+    "pass": true
+  }
+
+[E1] main+3399+3860, smart-account payer end to end
+  expected: official client and facilitator settle a capped smart-account payment
+  observed: {
+    "settle": {
+      "success": true,
+      "transaction": "043e4665ce0fa4613f21d06ea2b864624fa103c45e2394f6bb207de538d94f5e",
+      "network": "stellar:testnet",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "link": "https://stellar.expert/explorer/testnet/tx/043e4665ce0fa4613f21d06ea2b864624fa103c45e2394f6bb207de538d94f5e",
+    "events": [
+      {
+        "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+        "name": "spending_limit_enforced",
+        "topicCount": 2,
+        "topics": [
+          "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+        ]
+      },
+      {
+        "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+        "name": "transfer",
+        "topicCount": 4,
+        "topics": [
+          "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+          "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+          "native"
+        ]
+      }
+    ],
+    "pass": true
+  }
+
+[F5] main+3399+3860 facilitator with its default fee ceiling
+  expected: observation only: does the default 50,000 stroop ceiling admit this payer?
+  observed: {
+    "verify": {
+      "isValid": false,
+      "invalidReason": "invalid_exact_stellar_payload_fee_exceeds_maximum",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+      "invalidMessage": "simulation-derived fee 9066813 stroops exceeds ceiling 50000 stroops"
+    },
+    "minResourceFee": "9066713",
+    "pass": true,
+    "note": "not settled; the signed entry expires unused"
+  }
+
+[L1] client refuses an over-limit payment (9 XLM after 2 XLM spent, limit 10 XLM)
+  expected: client throws; simulation shows Error(Contract, #3221) SpendingLimitExceeded
+  observed: {
+    "threw": "Stellar simulation failed with error message: HostError: Error(Auth, InvalidAction) |  | Event log (newest first):",
+    "pass": true,
+    "matched": "Error(Contract, #3221)"
+  }
+
+[L2] facilitator refuses the same over-limit payload built without the client check
+  expected: PR 3399 and main+3399+3860 facilitators return simulation_failed
+Simulation error: : HostError: Error(Auth, InvalidAction)
+
+Event log (newest first):
+   0: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[error, Error(Auth, InvalidAction)], data:["failed account authentication with error", CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, Error(Contract, #3221)]
+   1: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[log], data:["VM call trapped with HostError", __check_auth, Error(Contract, #3221)]
+   2: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[error, Error(Contract, #3221)], data:"escalating error to VM trap from failed host function call: call"
+   3: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[error, Error(Contract, #3221)], data:["contract call failed", enforce, [[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}], [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], {context_type: [CallContract, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC], id: 1, name: "agent", policies: [CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA], policy_ids: [0], signer_ids: [1], signers: [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], valid_until: Void}, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG]]
+   4: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[log], data:["VM call trapped with HostError", enforce, Error(Contract, #3221)]
+   5: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[error, Error(Contract, #3221)], data:"escalating error to VM trap from failed host function call: fail_with_error"
+   6: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[error, Error(Contract, #3221)], data:["failing with contract error", 3221]
+   7: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[fn_call, CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, enforce], data:[[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}], [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], {context_type: [CallContract, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC], id: 1, name: "agent", policies: [CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA], policy_ids: [0], signer_ids: [1], signers: [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], valid_until: Void}, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG]
+   8: [Failed Diagnostic Event (not emitted)] contract:CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, topics:[fn_return, verify], data:true
+   9: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[fn_call, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, verify], data:[Bytes(9e3f7154e8781549b3cb82c9c87efc953db296385c55f258b5b789278aefb483), Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218), Bytes(fdbfc864d4fba9479994d7977e40ec1a2163e9f99b9aa1f6687f5212825b9e48e36e445902879e5cd8c4ec11cedf2c211090337738dc121b1907c04658242809)]
+   10: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[fn_call, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, __check_auth], data:[Bytes(4a20b42c3aba7f636ac344fa42317ea73a02fcb563736c8d8370bf3ab61904b9), {context_rule_ids: [1], signers: {[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]: Bytes(fdbfc864d4fba9479994d7977e40ec1a2163e9f99b9aa1f6687f5212825b9e48e36e445902879e5cd8c4ec11cedf2c211090337738dc121b1907c04658242809)}}, [[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}]]]
+   11: [Diagnostic Event] topics:[fn_call, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, transfer], data:[CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000]
+
+Simulation error: : HostError: Error(Auth, InvalidAction)
+
+Event log (newest first):
+   0: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[error, Error(Auth, InvalidAction)], data:["failed account authentication with error", CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, Error(Contract, #3221)]
+   1: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[log], data:["VM call trapped with HostError", __check_auth, Error(Contract, #3221)]
+   2: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[error, Error(Contract, #3221)], data:"escalating error to VM trap from failed host function call: call"
+   3: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[error, Error(Contract, #3221)], data:["contract call failed", enforce, [[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}], [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], {context_type: [CallContract, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC], id: 1, name: "agent", policies: [CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA], policy_ids: [0], signer_ids: [1], signers: [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], valid_until: Void}, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG]]
+   4: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[log], data:["VM call trapped with HostError", enforce, Error(Contract, #3221)]
+   5: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[error, Error(Contract, #3221)], data:"escalating error to VM trap from failed host function call: fail_with_error"
+   6: [Failed Diagnostic Event (not emitted)] contract:CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, topics:[error, Error(Contract, #3221)], data:["failing with contract error", 3221]
+   7: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[fn_call, CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA, enforce], data:[[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}], [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], {context_type: [CallContract, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC], id: 1, name: "agent", policies: [CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA], policy_ids: [0], signer_ids: [1], signers: [[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]], valid_until: Void}, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG]
+   8: [Failed Diagnostic Event (not emitted)] contract:CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, topics:[fn_return, verify], data:true
+   9: [Failed Diagnostic Event (not emitted)] contract:CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, topics:[fn_call, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, verify], data:[Bytes(9e3f7154e8781549b3cb82c9c87efc953db296385c55f258b5b789278aefb483), Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218), Bytes(fdbfc864d4fba9479994d7977e40ec1a2163e9f99b9aa1f6687f5212825b9e48e36e445902879e5cd8c4ec11cedf2c211090337738dc121b1907c04658242809)]
+   10: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[fn_call, CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, __check_auth], data:[Bytes(4a20b42c3aba7f636ac344fa42317ea73a02fcb563736c8d8370bf3ab61904b9), {context_rule_ids: [1], signers: {[External, CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW, Bytes(ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218)]: Bytes(fdbfc864d4fba9479994d7977e40ec1a2163e9f99b9aa1f6687f5212825b9e48e36e445902879e5cd8c4ec11cedf2c211090337738dc121b1907c04658242809)}}, [[Contract, {args: [CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000], contract: CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, fn_name: transfer}]]]
+   11: [Diagnostic Event] topics:[fn_call, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, transfer], data:[CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG, GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4, 90000000]
+
+  observed: {
+    "verify3399": {
+      "isValid": false,
+      "invalidReason": "invalid_exact_stellar_payload_simulation_failed",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "verifyBoth": {
+      "isValid": false,
+      "invalidReason": "invalid_exact_stellar_payload_simulation_failed",
+      "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    },
+    "simulationError": "Error(Contract, #3221)",
+    "pass": true
+  }
+
+[L3] network refuses the over-limit payload when submitted directly
+  expected: transaction is included and FAILED; the contract call traps
+  observed: {
+    "hash": "d3738b45e5345d29903be0993182c88b365ef9778b3bb782d2df47dff9abb000",
+    "link": "https://stellar.expert/explorer/testnet/tx/d3738b45e5345d29903be0993182c88b365ef9778b3bb782d2df47dff9abb000",
+    "status": "FAILED",
+    "opResult": "invokeHostFunctionTrapped",
+    "diagnostic": [
+      "[\"failing with contract error\",3221]",
+      "[\"VM call trapped with HostError\",\"enforce\",{\"type\":\"contract\",\"code\":3221}]"
+    ],
+    "pass": true
+  }
+
+Policy after run: {"spendingLimit":"100000000","cachedTotalSpent":"20000000","periodLedgers":17280}
+Smart account balance: 500000000 -> 480000000 stroops
+
+11/11 checks matched expectations
+  PASS C1 main client, smart-account payer
+  PASS C2 PR 3860 client, smart-account payer
+  PASS F1 main facilitator verifies the C2 payload
+  PASS F2 PR 3399 facilitator settles the same C2 payload
+  PASS C3 PR 3860 client, classic G payer, settled by main facilitator
+  PASS F3 main client, classic G payer, settled by PR 3399 facilitator
+  PASS E1 main+3399+3860, smart-account payer end to end
+  PASS F5 main+3399+3860 facilitator with its default fee ceiling
+  PASS L1 client refuses an over-limit payment (9 XLM after 2 XLM spent, limit 10 XLM)
+  PASS L2 facilitator refuses the same over-limit payload built without the client check
+  PASS L3 network refuses the over-limit payload when submitted directly

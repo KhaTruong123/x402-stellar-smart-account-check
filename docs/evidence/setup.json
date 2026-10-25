@@ -1,0 +1,108 @@
+{
+  "network": "stellar:testnet",
+  "rpc": "https://soroban-testnet.stellar.org",
+  "createdAt": "2026-10-25T01:22:55.660Z",
+  "accounts": {
+    "deployer": {
+      "address": "GD3BSZVIBNM2PXPJCMUAA6R66LKMVNCHTA3MNTBPCB2SNGXGQ26J4WEX",
+      "link": "https://stellar.expert/explorer/testnet/account/GD3BSZVIBNM2PXPJCMUAA6R66LKMVNCHTA3MNTBPCB2SNGXGQ26J4WEX"
+    },
+    "facilitator": {
+      "address": "GCC5GRDZY6SDGF7QOQKQTYHPGTHWWLOQBUXWDPOVGF2L5OMJB5VIUQWV",
+      "link": "https://stellar.expert/explorer/testnet/account/GCC5GRDZY6SDGF7QOQKQTYHPGTHWWLOQBUXWDPOVGF2L5OMJB5VIUQWV"
+    },
+    "payee": {
+      "address": "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+      "link": "https://stellar.expert/explorer/testnet/account/GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4"
+    },
+    "classicPayer": {
+      "address": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ",
+      "link": "https://stellar.expert/explorer/testnet/account/GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ"
+    }
+  },
+  "signerPublicKeys": {
+    "owner": "9ed975c96b2fdeef5c1abfef887d4015764f5ba0f07e2681d6bf62383c9222ee",
+    "agent": "ad26aad1404b1028170970949bf653a921c16e5ba556089ed196febd99275218"
+  },
+  "contracts": {
+    "tokenId": {
+      "id": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+      "link": "https://stellar.expert/explorer/testnet/contract/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC"
+    },
+    "verifierId": {
+      "id": "CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW",
+      "link": "https://stellar.expert/explorer/testnet/contract/CB3YKCAM6KLRBQBC66XJ5QQN3ODNXYGTD4ROUMWRLJG2FWE2FFF6CTHW"
+    },
+    "policyId": {
+      "id": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+      "link": "https://stellar.expert/explorer/testnet/contract/CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA"
+    },
+    "accountId": {
+      "id": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+      "link": "https://stellar.expert/explorer/testnet/contract/CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+    }
+  },
+  "agentRule": {
+    "id": 1,
+    "type": "CallContract(CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC)",
+    "spendingLimitStroops": "100000000",
+    "periodLedgers": 17280
+  },
+  "ozStellarContracts": "v0.8.0",
+  "wasmHashes": {
+    "account": "34d6b0c5d949443ba207a016ce110db4c6ea74235b2bd22d7b028a7eb4d1ab84",
+    "ed25519Verifier": "fafb19bda37a228c0cf005bfce6e8c90fd1ef1e7fae33606898e0c6b6fa1da8c",
+    "spendingLimitPolicy": "5d3e2e18b2eff028331c8984ef6a3393e3126133c3deeb488a38c1059dd2c190"
+  },
+  "smartAccountStartingBalanceStroops": "500000000",
+  "transactions": [
+    {
+      "step": "upload multisig_ed25519_verifier_example.wasm",
+      "hash": "2d0ddc7ff626b5f40e43ea5820d9f1612378b564529b927ca7deb63921985fd3",
+      "ledger": 5373563,
+      "link": "https://stellar.expert/explorer/testnet/tx/2d0ddc7ff626b5f40e43ea5820d9f1612378b564529b927ca7deb63921985fd3"
+    },
+    {
+      "step": "upload multisig_spending_limit_policy_example.wasm",
+      "hash": "1eeabd7abfccfe9e6f6df69e60350a0626f40c496ce5675dea2586ab317c3038",
+      "ledger": 5373565,
+      "link": "https://stellar.expert/explorer/testnet/tx/1eeabd7abfccfe9e6f6df69e60350a0626f40c496ce5675dea2586ab317c3038"
+    },
+    {
+      "step": "upload multisig_account_example.wasm",
+      "hash": "affddc103bc2b1875b15ad720eafbdd172c70063d8c911e40a53cc9aabeca126",
+      "ledger": 5373566,
+      "link": "https://stellar.expert/explorer/testnet/tx/affddc103bc2b1875b15ad720eafbdd172c70063d8c911e40a53cc9aabeca126"
+    },
+    {
+      "step": "deploy ed25519 verifier",
+      "hash": "db01afca3614af4594733a27e95df9136cddeb0facab1fadcf1d00899d36e13d",
+      "ledger": 5373567,
+      "link": "https://stellar.expert/explorer/testnet/tx/db01afca3614af4594733a27e95df9136cddeb0facab1fadcf1d00899d36e13d"
+    },
+    {
+      "step": "deploy spending-limit policy",
+      "hash": "fdb3df0ff99cd2af05fb7213907da197618080b8f873d459005c6cada1ee1ddd",
+      "ledger": 5373568,
+      "link": "https://stellar.expert/explorer/testnet/tx/fdb3df0ff99cd2af05fb7213907da197618080b8f873d459005c6cada1ee1ddd"
+    },
+    {
+      "step": "deploy smart account (rule 0: owner)",
+      "hash": "ac2d55b2748444749ba1c9dc723e621cf176b875e28c3d7ea740b890730af499",
+      "ledger": 5373569,
+      "link": "https://stellar.expert/explorer/testnet/tx/ac2d55b2748444749ba1c9dc723e621cf176b875e28c3d7ea740b890730af499"
+    },
+    {
+      "step": "add_context_rule (agent, spending limit)",
+      "hash": "f4bf1a226333709633e7022047f143a9ced59abaed9d706d8922e781ebb6fc50",
+      "ledger": 5373570,
+      "link": "https://stellar.expert/explorer/testnet/tx/f4bf1a226333709633e7022047f143a9ced59abaed9d706d8922e781ebb6fc50"
+    },
+    {
+      "step": "fund smart account (50 XLM)",
+      "hash": "ccc27616d37fb8af6bf5bf9385246221c0ab47c5b4ddc27db6aaa4b8ce69d331",
+      "ledger": 5373571,
+      "link": "https://stellar.expert/explorer/testnet/tx/ccc27616d37fb8af6bf5bf9385246221c0ab47c5b4ddc27db6aaa4b8ce69d331"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "ranAt": "2026-10-25T01:28:48.011Z",
+  "builds": {
+    "3399": {
+      "label": "pr-3399",
+      "commit": "b88f38930e31b487b3755eac86484beebde4f183"
+    },
+    "3860": {
+      "label": "pr-3860",
+      "commit": "30c91d11dd6064aa246eaf4c9cecd34900ed13b5"
+    },
+    "main": {
+      "label": "main",
+      "commit": "4241d56cae2fb7ed06cd18e3a9ff2a3457b1ce54"
+    },
+    "both": {
+      "label": "main+3399+3860",
+      "commit": "2b62413c4123c362093116749a1188d71ed4cdf9"
+    }
+  },
+  "feeCeilingStroops": 300000000,
+  "smartAccount": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+  "smartAccountBalanceStroops": {
+    "start": "500000000",
+    "end": "480000000"
+  },
+  "policyAfterRun": {
+    "spendingLimit": "100000000",
+    "cachedTotalSpent": "20000000",
+    "periodLedgers": 17280
+  },
+  "results": [
+    {
+      "id": "C1",
+      "title": "main client, smart-account payer",
+      "expected": "throws in signAuthEntries (ed25519 path on a C address)",
+      "threw": "invalid version byte. expected 48, got 16",
+      "pass": true,
+      "matched": "invalid version byte"
+    },
+    {
+      "id": "C2",
+      "title": "PR 3860 client, smart-account payer",
+      "expected": "payload created; client re-simulation with real auth succeeds",
+      "pass": true,
+      "simulation": {
+        "minResourceFee": "103701385",
+        "contractEvents": [
+          {
+            "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+            "name": "spending_limit_enforced",
+            "topicCount": 2,
+            "topics": [
+              "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+            ]
+          },
+          {
+            "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+            "name": "transfer",
+            "topicCount": 4,
+            "topics": [
+              "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+              "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+              "native"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "F1",
+      "title": "main facilitator verifies the C2 payload",
+      "expected": "isValid false, invalid_exact_stellar_payload_event_not_transfer",
+      "verify": {
+        "isValid": false,
+        "invalidReason": "invalid_exact_stellar_payload_event_not_transfer",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "pass": true
+    },
+    {
+      "id": "F2",
+      "title": "PR 3399 facilitator settles the same C2 payload",
+      "expected": "verify ok, settle success, one policy event plus one transfer on-chain",
+      "verify": {
+        "isValid": true,
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "settle": {
+        "success": true,
+        "transaction": "dc36081ba559c39fb69fe3332890056aa1f43fe007b5355883b6259d24d30562",
+        "network": "stellar:testnet",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "link": "https://stellar.expert/explorer/testnet/tx/dc36081ba559c39fb69fe3332890056aa1f43fe007b5355883b6259d24d30562",
+      "events": [
+        {
+          "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+          "name": "spending_limit_enforced",
+          "topicCount": 2,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+          ]
+        },
+        {
+          "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+          "name": "transfer",
+          "topicCount": 4,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+            "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+            "native"
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "C3",
+      "title": "PR 3860 client, classic G payer, settled by main facilitator",
+      "expected": "unchanged ed25519 path: payload created and settled",
+      "settle": {
+        "success": true,
+        "transaction": "f85b4b842ee7238fbe559b003cb0c945f7fd973c1ef2063342f85642b8cb8c2a",
+        "network": "stellar:testnet",
+        "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ"
+      },
+      "link": "https://stellar.expert/explorer/testnet/tx/f85b4b842ee7238fbe559b003cb0c945f7fd973c1ef2063342f85642b8cb8c2a",
+      "pass": true
+    },
+    {
+      "id": "F3",
+      "title": "main client, classic G payer, settled by PR 3399 facilitator",
+      "expected": "classic payments still settle under the new event scan",
+      "settle": {
+        "success": true,
+        "transaction": "5f72f54f396eb91f7ec8ceeebbb959b9be7962c81c55b6f4be4e0bb27722845a",
+        "network": "stellar:testnet",
+        "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ"
+      },
+      "link": "https://stellar.expert/explorer/testnet/tx/5f72f54f396eb91f7ec8ceeebbb959b9be7962c81c55b6f4be4e0bb27722845a",
+      "events": [
+        {
+          "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+          "name": "transfer",
+          "topicCount": 4,
+          "topics": [
+            "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ",
+            "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+            "native"
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "E1",
+      "title": "main+3399+3860, smart-account payer end to end",
+      "expected": "official client and facilitator settle a capped smart-account payment",
+      "settle": {
+        "success": true,
+        "transaction": "043e4665ce0fa4613f21d06ea2b864624fa103c45e2394f6bb207de538d94f5e",
+        "network": "stellar:testnet",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "link": "https://stellar.expert/explorer/testnet/tx/043e4665ce0fa4613f21d06ea2b864624fa103c45e2394f6bb207de538d94f5e",
+      "events": [
+        {
+          "emitter": "CCVIHJ2RNUSSC7X2D6GEQTITJL3WPU4IJSB6FMAPJETGW3MJIQZKURFA",
+          "name": "spending_limit_enforced",
+          "topicCount": 2,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+          ]
+        },
+        {
+          "emitter": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+          "name": "transfer",
+          "topicCount": 4,
+          "topics": [
+            "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+            "GBBK6E3HMBIDZGN5FUXKHXKN7X7ZFOBKDOEYYPIETFBPGEC4A6PEHTA4",
+            "native"
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "F5",
+      "title": "main+3399+3860 facilitator with its default fee ceiling",
+      "expected": "observation only: does the default 50,000 stroop ceiling admit this payer?",
+      "verify": {
+        "isValid": false,
+        "invalidReason": "invalid_exact_stellar_payload_fee_exceeds_maximum",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+        "invalidMessage": "simulation-derived fee 9066813 stroops exceeds ceiling 50000 stroops"
+      },
+      "minResourceFee": "9066713",
+      "pass": true,
+      "note": "not settled; the signed entry expires unused"
+    },
+    {
+      "id": "L1",
+      "title": "client refuses an over-limit payment (9 XLM after 2 XLM spent, limit 10 XLM)",
+      "expected": "client throws; simulation shows Error(Contract, #3221) SpendingLimitExceeded",
+      "threw": "Stellar simulation failed with error message: HostError: Error(Auth, InvalidAction) |  | Event log (newest first):",
+      "pass": true,
+      "matched": "Error(Contract, #3221)"
+    },
+    {
+      "id": "L2",
+      "title": "facilitator refuses the same over-limit payload built without the client check",
+      "expected": "PR 3399 and main+3399+3860 facilitators return simulation_failed",
+      "verify3399": {
+        "isValid": false,
+        "invalidReason": "invalid_exact_stellar_payload_simulation_failed",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "verifyBoth": {
+        "isValid": false,
+        "invalidReason": "invalid_exact_stellar_payload_simulation_failed",
+        "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG"
+      },
+      "simulationError": "Error(Contract, #3221)",
+      "pass": true
+    },
+    {
+      "id": "L3",
+      "title": "network refuses the over-limit payload when submitted directly",
+      "expected": "transaction is included and FAILED; the contract call traps",
+      "hash": "d3738b45e5345d29903be0993182c88b365ef9778b3bb782d2df47dff9abb000",
+      "link": "https://stellar.expert/explorer/testnet/tx/d3738b45e5345d29903be0993182c88b365ef9778b3bb782d2df47dff9abb000",
+      "status": "FAILED",
+      "opResult": "invokeHostFunctionTrapped",
+      "diagnostic": [
+        "[\"failing with contract error\",3221]",
+        "[\"VM call trapped with HostError\",\"enforce\",{\"type\":\"contract\",\"code\":3221}]"
+      ],
+      "pass": true
+    }
+  ]
+}
