@@ -1,0 +1,70 @@
+$ vitest run --config vitest.integration.config.ts
+
+ RUN  v3.2.7 /private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-3399/typescript/packages/mechanisms/stellar
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GBLCIYE4KGOMW7OQYV7UDL3M3HDZY6PIXYXPXFVNYIGQ2HZCQK4ZUEWA not found, funding with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GAYINHAKS2XJPR3G3CNBSPCFDX2QEN5UXKZULRNBQQETVJ3GMR5TK3S6 not found, funding with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GAFGLWSW4FTXKZBD6OU53JVA54K6SEDS7LUNJG6L6Q5XFA2Q7V52Y6GL not found, funding with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GAFGLWSW4FTXKZBD6OU53JVA54K6SEDS7LUNJG6L6Q5XFA2Q7V52Y6GL funded with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GAYINHAKS2XJPR3G3CNBSPCFDX2QEN5UXKZULRNBQQETVJ3GMR5TK3S6 funded with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests
+Account GBLCIYE4KGOMW7OQYV7UDL3M3HDZY6PIXYXPXFVNYIGQ2HZCQK4ZUEWA funded with Friendbot
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > x402Client / x402ResourceServer / x402Facilitator - Stellar Flow > server should successfully verify and settle a Stellar payment from a client
+Stellar Expert (testnet): https://stellar.expert/explorer/testnet/tx/c1bb38a811a5efc6b3ec9b30457a38738531f48719802d4eb68e3d4a39d229e1
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28)
+Stellar testnet is running protocol version 29
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should verify and settle whichever credential arm live simulation returns
+Recording-mode simulation on protocol 29 returned credential arm: sorobanCredentialsAddress
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should verify and settle whichever credential arm live simulation returns
+Stellar Expert (testnet): https://stellar.expert/explorer/testnet/tx/56668d04b7048c8a53a7d81cd5e44577aba42fa6134d51e8d4aa29d85655c0f9
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should verify and settle a genuinely V2-signed auth entry
+Stellar Expert (testnet): https://stellar.expert/explorer/testnet/tx/4f5b04160c2c7fc27a193f1767f0629ac74af3011c54c414c11dacd09a2d5f9e
+
+stderr | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should reject a V2 entry whose signature commits to the legacy V1 preimage
+Simulation error: : HostError: Error(Auth, InvalidAction)
+
+Event log (newest first):
+   0: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[error, Error(Auth, InvalidAction)], data:["failed account authentication with error", GAFGLWSW4FTXKZBD6OU53JVA54K6SEDS7LUNJG6L6Q5XFA2Q7V52Y6GL, Error(Crypto, InvalidInput)]
+   1: [Diagnostic Event] contract:CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, topics:[error, Error(Crypto, InvalidInput)], data:"failed ED25519 verification"
+   2: [Diagnostic Event] topics:[fn_call, CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC, transfer], data:[GAFGLWSW4FTXKZBD6OU53JVA54K6SEDS7LUNJG6L6Q5XFA2Q7V52Y6GL, GBLCIYE4KGOMW7OQYV7UDL3M3HDZY6PIXYXPXFVNYIGQ2HZCQK4ZUEWA, 1000]
+
+
+stdout | test/integrations/exact-stellar.test.ts > Stellar Integration Tests > x402HTTPClient / x402HTTPResourceServer / x402Facilitator - Stellar Flow > middleware should successfully verify and settle a Stellar payment from an http client
+Stellar Expert (testnet): https://stellar.expert/explorer/testnet/tx/0c2c6bde00184ee73aa3da3b1973208e2ab35bff575c8166f174d923d3a00d1a
+
+ ✓ test/integrations/exact-stellar.test.ts (11 tests) 43399ms
+   ✓ Stellar Integration Tests > x402Client / x402ResourceServer / x402Facilitator - Stellar Flow > server should successfully verify and settle a Stellar payment from a client  10156ms
+   ✓ Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should verify and settle whichever credential arm live simulation returns  8942ms
+   ✓ Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should verify and settle a genuinely V2-signed auth entry  8987ms
+   ✓ Stellar Integration Tests > CAP-71 V2 address credentials (Protocol 28) > should reject a V2 entry whose signature commits to the legacy V1 preimage  1913ms
+   ✓ Stellar Integration Tests > x402HTTPClient / x402HTTPResourceServer / x402Facilitator - Stellar Flow > middleware should successfully verify and settle a Stellar payment from an http client  8006ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  08:30:08
+   Duration  43.89s (transform 131ms, setup 0ms, collect 283ms, tests 43.40s, environment 0ms, prepare 57ms)
+
+exit=0

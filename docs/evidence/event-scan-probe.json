@@ -1,0 +1,109 @@
+{
+  "builds": [
+    {
+      "label": "main",
+      "commit": "4241d56cae2fb7ed06cd18e3a9ff2a3457b1ce54"
+    },
+    {
+      "label": "pr-3399",
+      "commit": "b88f38930e31b487b3755eac86484beebde4f183"
+    },
+    {
+      "label": "main+3399+3860",
+      "commit": "2b62413c4123c362093116749a1188d71ed4cdf9"
+    }
+  ],
+  "cases": [
+    {
+      "id": "P1",
+      "title": "OZ policy event (2 topics, policy emitter), then the transfer (the real testnet order)",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P2",
+      "title": "transfer only (classic payer baseline)",
+      "main": "accepted",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P3",
+      "title": "fake transfer from a foreign contract, no real asset transfer",
+      "main": "invalid_exact_stellar_payload_event_wrong_asset",
+      "pr-3399": "invalid_exact_stellar_payload_no_transfer_events",
+      "main+3399+3860": "invalid_exact_stellar_payload_no_transfer_events"
+    },
+    {
+      "id": "P4",
+      "title": "real transfer plus a foreign token transfer payer -> attacker",
+      "main": "invalid_exact_stellar_payload_event_wrong_asset",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P5",
+      "title": "real transfer plus a second asset transfer payer -> attacker",
+      "main": "invalid_exact_stellar_payload_multiple_transfers",
+      "pr-3399": "invalid_exact_stellar_payload_multiple_transfers",
+      "main+3399+3860": "invalid_exact_stellar_payload_multiple_transfers"
+    },
+    {
+      "id": "P6",
+      "title": "real transfer plus asset `approve` payer -> attacker",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P7",
+      "title": "real transfer plus asset `set_authorized` on the payee",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P8",
+      "title": "real transfer plus asset `burn` from payer",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "invalid_exact_stellar_payload_event_not_transfer",
+      "main+3399+3860": "invalid_exact_stellar_payload_event_not_transfer"
+    },
+    {
+      "id": "P9",
+      "title": "real transfer plus asset `mint` to payer",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "invalid_exact_stellar_payload_event_not_transfer",
+      "main+3399+3860": "invalid_exact_stellar_payload_event_not_transfer"
+    },
+    {
+      "id": "P10",
+      "title": "real transfer plus a rolled-back asset transfer (inSuccessfulContractCall false)",
+      "main": "invalid_exact_stellar_payload_multiple_transfers",
+      "pr-3399": "invalid_exact_stellar_payload_multiple_transfers",
+      "main+3399+3860": "invalid_exact_stellar_payload_multiple_transfers"
+    },
+    {
+      "id": "P11",
+      "title": "foreign event with no topics, then the transfer",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "accepted",
+      "main+3399+3860": "accepted"
+    },
+    {
+      "id": "P12",
+      "title": "contract event with no emitter id, then the transfer",
+      "main": "invalid_exact_stellar_payload_event_not_transfer",
+      "pr-3399": "invalid_exact_stellar_payload_event_missing_contract_id",
+      "main+3399+3860": "invalid_exact_stellar_payload_event_missing_contract_id"
+    },
+    {
+      "id": "P13",
+      "title": "asset transfer to the wrong payee only",
+      "main": "invalid_exact_stellar_payload_event_wrong_to",
+      "pr-3399": "invalid_exact_stellar_payload_event_wrong_to",
+      "main+3399+3860": "invalid_exact_stellar_payload_event_wrong_to"
+    }
+  ]
+}

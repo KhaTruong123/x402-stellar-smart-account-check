@@ -1,0 +1,89 @@
+$ vitest run --coverage
+
+ RUN  v3.2.7 /private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar
+      Coverage enabled with v8
+
+ ✓ test/unit/client.test.ts (21 tests) 10ms
+ ✓ test/unit/utils.test.ts (46 tests) 10ms
+stderr | test/unit/facilitator-verify.test.ts > ExactStellarScheme#Verify (randomly using 1-2 facilitator signers) > validation errors > should reject malformed transaction XDR
+Error parsing transaction: XdrReaderError [TypeError]: XDR Read Error: attempt to read outside the boundary of the buffer
+    at XdrReader.advance (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/serialization/xdr-reader.js:68:13)
+    at XdrReader.readInt32BE (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/serialization/xdr-reader.js:114:42)
+    at Function.read (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/int.js:12:19)
+    at Function.read (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/enum.js:16:24)
+    at Function.read (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/union.js:70:36)
+    at Function.fromXDR (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/node_modules/.pnpm/@stellar+js-xdr@4.0.0/node_modules/@stellar/js-xdr/src/xdr-type.js:70:25)
+    at new Transaction (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@stellar+stellar-sdk@16.4.1/node_modules/@stellar/stellar-sdk/src/base/transaction.ts:51:42)
+    at ExactStellarScheme._verify (/private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/src/exact/facilitator/scheme.ts:449:23)
+    at ExactStellarScheme.verify (/private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/src/exact/facilitator/scheme.ts:207:24)
+    at /private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/test/unit/facilitator-verify.test.ts:383:40
+
+ ✓ test/unit/facilitator-accessors.test.ts (10 tests) 39ms
+ ✓ test/unit/signer.test.ts (10 tests) 70ms
+ ✓ test/unit/shared.test.ts (21 tests) 45ms
+stderr | test/unit/facilitator-verify.test.ts > ExactStellarScheme#Verify (randomly using 1-2 facilitator signers) > validation errors > should reject simulation failure
+Simulation error: : Simulation failed
+
+ ✓ test/unit/facilitator-verify.test.ts (54 tests) 230ms
+ ✓ test/unit/constants.test.ts (6 tests) 2ms
+ ✓ test/unit/server.test.ts (15 tests) 4ms
+ ✓ test/unit/defaultAssets.test.ts (4 tests) 2ms
+stderr | test/unit/facilitator-settle.test.ts > ExactStellarScheme - Settle (randomly using 1-2 facilitator signers) > settlement failures > should handle unexpected errors during account fetch
+Unexpected settlement error: Error: Network error
+    at /private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/test/unit/facilitator-settle.test.ts:303:58
+    at file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11
+    at file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26
+    at file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1863:10)
+    at runTest (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1574:12)
+    at runSuite (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)
+    at runSuite (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)
+    at runSuite (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:1729:8)
+
+stderr | test/unit/facilitator-settle.test.ts > ExactStellarScheme - Settle (randomly using 1-2 facilitator signers) > successful settlement > should continue polling on errors
+Poll attempt 0 failed: Error: Temporary network error
+    at Object.<anonymous> (/private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/test/unit/facilitator-settle.test.ts:365:17)
+    at Object.mockCall (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+spy@3.2.7/node_modules/@vitest/spy/dist/index.js:96:15)
+    at Object.spy [as getTransaction] (file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/tinyspy@4.0.3/node_modules/tinyspy/dist/index.js:47:103)
+    at ExactStellarScheme.pollForTransaction (/private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/src/exact/facilitator/scheme.ts:612:39)
+    at ExactStellarScheme.settle (/private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/src/exact/facilitator/scheme.ts:378:40)
+    at /private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/packages/mechanisms/stellar/test/unit/facilitator-settle.test.ts:370:22
+    at file:///private/var/folders/r_/zfws2sns07x0j6zc9b5kqnmm0000gn/T/x402work/wt-both/typescript/node_modules/.pnpm/@vitest+runner@3.2.7/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20
+
+ ✓ test/unit/facilitator-settle.test.ts (19 tests) 4101ms
+   ✓ ExactStellarScheme - Settle (randomly using 1-2 facilitator signers) > settlement failures > should return error when transaction confirmation times out  1003ms
+   ✓ ExactStellarScheme - Settle (randomly using 1-2 facilitator signers) > successful settlement > should poll until transaction succeeds  2007ms
+   ✓ ExactStellarScheme - Settle (randomly using 1-2 facilitator signers) > successful settlement > should continue polling on errors  1013ms
+
+ Test Files  10 passed (10)
+      Tests  206 passed (206)
+   Start at  08:19:02
+   Duration  4.76s (transform 445ms, setup 0ms, collect 1.89s, tests 4.51s, environment 1ms, prepare 1.04s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   93.43 |    88.47 |   87.75 |   93.43 |                   
+ src               |   94.28 |    88.77 |     100 |   94.28 |                   
+  constants.ts     |     100 |      100 |     100 |     100 |                   
+  defaultAssets.ts |   77.41 |    88.88 |     100 |   77.41 | 43-49             
+  errors.ts        |     100 |    71.42 |     100 |     100 | 36,59             
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  shared.ts        |      92 |    83.72 |     100 |      92 | ...06-209,213-214 
+  signer.ts        |     100 |      100 |     100 |     100 |                   
+  types.ts         |       0 |        0 |       0 |       0 |                   
+  utils.ts         |    98.7 |       96 |     100 |    98.7 | 130               
+ src/exact         |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+ src/exact/client  |   96.84 |     92.3 |      60 |   96.84 |                   
+  index.ts         |       0 |        0 |       0 |       0 | 1                 
+  scheme.ts        |   97.87 |       96 |      75 |   97.87 | 59-60             
+ ...ct/facilitator |   93.62 |     88.6 |   92.85 |   93.62 |                   
+  index.ts         |       0 |        0 |       0 |       0 | 1                 
+  scheme.ts        |   93.79 |    89.17 |     100 |   93.79 | ...90-592,716-722 
+ src/exact/server  |   82.25 |    76.92 |   57.14 |   82.25 |                   
+  index.ts         |       0 |        0 |       0 |       0 | 1                 
+  scheme.ts        |    83.6 |    83.33 |   66.66 |    83.6 | 35-37,47-48,77-81 
+-------------------|---------|----------|---------|---------|-------------------

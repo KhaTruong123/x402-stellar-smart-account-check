@@ -1,0 +1,42 @@
+[
+  {
+    "check": "F2",
+    "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+    "hash": "dc36081ba559c39fb69fe3332890056aa1f43fe007b5355883b6259d24d30562",
+    "successful": true,
+    "feeChargedStroops": 90173155,
+    "ledger": 5373619
+  },
+  {
+    "check": "C3",
+    "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ",
+    "hash": "f85b4b842ee7238fbe559b003cb0c945f7fd973c1ef2063342f85642b8cb8c2a",
+    "successful": true,
+    "feeChargedStroops": 15458,
+    "ledger": 5373621
+  },
+  {
+    "check": "F3",
+    "payer": "GBOMHG4ICNQQA2CR7HYXPTVPJZ25EFOV7RQUPUX4XOBC2HBMHQ5IAKHQ",
+    "hash": "5f72f54f396eb91f7ec8ceeebbb959b9be7962c81c55b6f4be4e0bb27722845a",
+    "successful": true,
+    "feeChargedStroops": 15458,
+    "ledger": 5373623
+  },
+  {
+    "check": "E1",
+    "payer": "CAEIDYUIZZHKI7JVFHOXA2OVQDJ64UG3EZPKYMHDAQNVUGKODMTDL2EG",
+    "hash": "043e4665ce0fa4613f21d06ea2b864624fa103c45e2394f6bb207de538d94f5e",
+    "successful": true,
+    "feeChargedStroops": 7881487,
+    "ledger": 5373625
+  },
+  {
+    "check": "L3",
+    "payer": "smart account",
+    "hash": "d3738b45e5345d29903be0993182c88b365ef9778b3bb782d2df47dff9abb000",
+    "successful": false,
+    "feeChargedStroops": 14280,
+    "ledger": 5373628
+  }
+]

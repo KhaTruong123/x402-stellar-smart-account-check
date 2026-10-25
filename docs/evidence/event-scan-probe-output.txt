@@ -1,0 +1,52 @@
+P1	OZ policy event (2 topics, policy emitter), then the transfer (the real testnet order)
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          accepted
+	main+3399+3860   accepted
+P2	transfer only (classic payer baseline)
+	main             accepted
+	pr-3399          accepted
+	main+3399+3860   accepted
+P3	fake transfer from a foreign contract, no real asset transfer
+	main             invalid_exact_stellar_payload_event_wrong_asset
+	pr-3399          invalid_exact_stellar_payload_no_transfer_events
+	main+3399+3860   invalid_exact_stellar_payload_no_transfer_events
+P4	real transfer plus a foreign token transfer payer -> attacker
+	main             invalid_exact_stellar_payload_event_wrong_asset
+	pr-3399          accepted
+	main+3399+3860   accepted
+P5	real transfer plus a second asset transfer payer -> attacker
+	main             invalid_exact_stellar_payload_multiple_transfers
+	pr-3399          invalid_exact_stellar_payload_multiple_transfers
+	main+3399+3860   invalid_exact_stellar_payload_multiple_transfers
+P6	real transfer plus asset `approve` payer -> attacker
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          accepted
+	main+3399+3860   accepted
+P7	real transfer plus asset `set_authorized` on the payee
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          accepted
+	main+3399+3860   accepted
+P8	real transfer plus asset `burn` from payer
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          invalid_exact_stellar_payload_event_not_transfer
+	main+3399+3860   invalid_exact_stellar_payload_event_not_transfer
+P9	real transfer plus asset `mint` to payer
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          invalid_exact_stellar_payload_event_not_transfer
+	main+3399+3860   invalid_exact_stellar_payload_event_not_transfer
+P10	real transfer plus a rolled-back asset transfer (inSuccessfulContractCall false)
+	main             invalid_exact_stellar_payload_multiple_transfers
+	pr-3399          invalid_exact_stellar_payload_multiple_transfers
+	main+3399+3860   invalid_exact_stellar_payload_multiple_transfers
+P11	foreign event with no topics, then the transfer
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          accepted
+	main+3399+3860   accepted
+P12	contract event with no emitter id, then the transfer
+	main             invalid_exact_stellar_payload_event_not_transfer
+	pr-3399          invalid_exact_stellar_payload_event_missing_contract_id
+	main+3399+3860   invalid_exact_stellar_payload_event_missing_contract_id
+P13	asset transfer to the wrong payee only
+	main             invalid_exact_stellar_payload_event_wrong_to
+	pr-3399          invalid_exact_stellar_payload_event_wrong_to
+	main+3399+3860   invalid_exact_stellar_payload_event_wrong_to
